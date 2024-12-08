@@ -1,0 +1,6 @@
+__pycache__/
+*.py[cod]
+/.venv/
+/examples/grpc/helloworld_grpc.py
+/examples/grpc/helloworld_pb2.py
+/examples/grpc/helloworld_pb2_grpc.py
