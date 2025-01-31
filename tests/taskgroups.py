@@ -197,3 +197,26 @@ async def test_notasks():
     tasks.append(asyncio.Task(throw()))
     await asyncio.wait(tasks)
 
+
+@pytest.mark.asyncio
+async def test_simple_tg():
+    async with asyncio.TaskGroup() as tg:
+        try:
+            await tg.create_task(throw())
+        except* BaseException as e:
+            logger.warning(f'Caught BaseException {e}')
+        except* RuntimeError as e:
+            logger.warning(f'Caught {e}')
+
+def boo(task):
+    logger.warning('Boo')
+
+@pytest.mark.asyncio
+async def test_simple():
+    try:
+        task = asyncio.create_task(throw())
+        task.add_done_callback(boo)
+        await task
+    except RuntimeError as e:
+        logger.warning(f'Caught {e}')
+
